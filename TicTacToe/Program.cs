@@ -13,7 +13,7 @@ class Game {
     public GameLogic Logic{get => logic;}
 
 
-    public void Start() {
+    public void Start() {       //initialises the game loop. breaks if someone wins or ties
 
         while (isplaying) {
             GameLoop();
@@ -30,7 +30,7 @@ class Game {
 
     //holds all game steps
     private void GameLoop(){
-        Console.Clear();                                //Clear Screen, then update board. check if there someone won & set winner (char) to a winning char(x,o,t) if someone one, or a tie.
+        Console.Clear();                                //Clear Screen, then update board. check if there someone won & set winner (char) to a winning char(x,o,t) if someone won, or a tied.
         Console.WriteLine(UpdateBoard());
         winner = Logic.CheckBoardPieces(_boardArray);
         CheckWinner();
@@ -38,8 +38,8 @@ class Game {
         {
             Playerin();
         }
-        else {              //otherwise recheck winner for no fuckign reason and then clear sceen lmao
-            CheckWinner();
+        else {              //clear sceen lmao
+            //CheckWinner();
             Console.Clear();
         }
     }
@@ -66,10 +66,10 @@ class Game {
         Console.WriteLine($"{playerChar} please input location (1-9)");
                             
         while (true) {      //this is a bad solution. Doing it because im lazy :/
-            input = Convert.ToInt32(Console.ReadLine()) - 1;    // minus 1 so it works with array properly.
+            input = Convert.ToInt32(Console.ReadLine()) - 1;    //minus 1 so it works with array properly.
             if (input < 0 || input > 8)                         //numbers are between 0-8 for array purposes, but player doesnt know.
             {                                                   
-                Console.WriteLine("Bad input");                 //if not in usable range, tell player thier option was shit then restarts cuz of if
+                Console.WriteLine("Bad input");                 //if not in usable range, tell player thier option was TRASH then restarts cuz of if
             }
             else
             {
@@ -108,7 +108,7 @@ class Game {
     }
 }
 
-class BoardPiece {
+class BoardPiece {  //holds each piece and position
     private int _location;
     private char _char = ' ';
 
@@ -126,7 +126,7 @@ class BoardPiece {
     }
 }
 
-class GameLogic {
+class GameLogic {       //this could be in game class, but seemed like alot to cram in there. 
     bool _player1;
     int tieValue = 36;
     public bool GetPlayer { get => _player1; set => _player1 = value; }
